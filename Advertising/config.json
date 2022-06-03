@@ -1,0 +1,74 @@
+{
+    "campaigns": [
+        {
+            "product": "P1",
+            "subcampaign": {
+                "Male-Worker": {
+                    "alpha_bar": 0.7
+                },
+                "Female-Worker": {
+                    "alpha_bar": 0.9
+                },
+                "Female-NonWorker":{
+                    "alpha_bar": 0.1
+                }
+            }
+        },
+        {
+            "product": "P2",
+            "subcampaign": {
+                "Male-Worker": {
+                    "alpha_bar": 0.8
+                },
+                "Female-Worker": {
+                    "alpha_bar": 0.6
+                },
+                "Female-NonWorker":{
+                    "alpha_bar": 0.3
+                }
+            }
+        },
+        {
+            "product": "P3",
+            "subcampaign": {
+                "Male-Worker": {
+                    "alpha_bar": 0.2
+                },
+                "Female-Worker": {
+                    "alpha_bar": 0.6
+                },
+                "Female-NonWorker":{
+                    "alpha_bar": 0.6
+                }
+            }
+        },
+        {
+            "product": "P4",
+            "subcampaign": {
+                "Male-Worker": {
+                    "alpha_bar": 0.3
+                },
+                "Female-Worker": {
+                    "alpha_bar": 0.4
+                },
+                "Female-NonWorker":{
+                    "alpha_bar": 0.5
+                }
+            }
+        },
+        {
+            "product": "P5",
+            "subcampaign": {
+                "Male-Worker": {
+                    "alpha_bar": 0.5
+                },
+                "Female-Worker": {
+                    "alpha_bar": 0.3
+                },
+                "Female-NonWorker":{
+                    "alpha_bar": 0.7
+                }
+            }
+        }
+    ]
+}
