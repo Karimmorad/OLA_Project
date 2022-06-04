@@ -8,8 +8,8 @@ class Environment:
         self.alphas = alphas
         self.features = features
         self.products = products
-        self.campaign = [Campaign(budgets[i], products[i], features, function, alphas[i], sigma) for i in
-                         range(len(self.products))]
+        self.campaigns = [Campaign(budgets[i], products[i], features, function[products[i]], alphas[i], sigma) for i in
+                          range(len(self.products))]
         self.budgets = budgets
 
     # def add_campaign(self, product, function):
@@ -18,7 +18,7 @@ class Environment:
     #     )
 
     def round(self, campaign_id, pulled_arm, feature=None):
-        return self.campaign[campaign_id].round(pulled_arm, feature)
+        return self.campaigns[campaign_id].round(pulled_arm, feature)
 
     def round_all(self, feature=None):
         table = []
@@ -29,27 +29,11 @@ class Environment:
 
 class Campaign:
     def __init__(self, budget, product, features, function, alphas, sigma):
-        self.subcampaigns = [Subcampaign(budget, features[i], function, sigma) for i in range(len(self.features))]
         self.product = product
         self.budget = budget
         self.features = features
         self.alphas = alphas
-
-    # def add_subcampaign(self, function, feature):
-    #     self.subcampaigns.append(
-    #         Subcampaign(feature, self.budget, feature, function)
-    #     )
-
-    # # round a specific arm
-    # def round(self, subcampaign_id, pulled_arm, feature=None):
-    #     return self.subcampaigns[subcampaign_id].round(pulled_arm, feature)
-    #
-    # # round all arms
-    # def round_all(self, feature=None):
-    #     table = []
-    #     for subcampaign in self.subcampaigns:
-    #         table.append(subcampaign.round_all(feature))
-    #     return table
+        self.subcampaigns = [Subcampaign(budget, features[i], i, function, sigma) for i in range(len(self.features))]
 
     # round a specific arm
     def round(self, pulled_arm, feature=None):
@@ -66,29 +50,10 @@ class Campaign:
 
 
 class Subcampaign:
-    # def __init__(self, budget, product, feature, function):
-    #     self.product = product
-    #     self.feature = feature
-    #     self.budgets = budget
-    #     self.means = function(budget)
-    # self.features = [Subcampaign_feature(budgets, features[i], sigma) for i in range(self.n_features)]
-
-    # round a specific arm
-    # def round(self, pulled_arm, feature=None):
-    #     # aggregate sample
-    #     if feature is None:
-    #         return sum(self.weights[i] * self.features[i].round(pulled_arm) for i in range(self.n_features))
-    #     # disaggregate sample
-    #     else:
-    #         return self.features[feature].round(pulled_arm)
-    #
-    # # round all arms
-    # def round_all(self, phase=None):
-    #     return [self.round(pulled_arm, phase) for pulled_arm in range(len(self.budgets))]
-    def __init__(self, budgets, feature, function, sigma):
+    def __init__(self, budget, feature, feature_id, function, sigma):
         self.feature = feature
-        self.means = function(budgets)
-        self.sigmas = np.ones(len(budgets)) * sigma
+        self.means = function[feature_id](budget)
+        self.sigmas = np.ones(len(budget)) * sigma
 
     def round(self, pulled_arm):
         return np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm])
