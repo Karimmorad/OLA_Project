@@ -7,20 +7,7 @@ import numpy as np
 m_inf = -math.inf
 
 
-def knapsack_optimizer(table):
-    """
-    Given a budgets/sub-campaigns matrix, resolve the Knapsack problem optimization.
-    :param table: budgets/sub-campaigns matrix, each cell contains the number of clicks
-        EXAMPLE
-        table = [
-            [m_inf, 90, 100, 105, 110, m_inf, m_inf, m_inf],
-            [0, 82, 90, 92, m_inf, m_inf, m_inf, m_inf],
-            [0, 80, 83, 85, 86, m_inf, m_inf, m_inf],
-            [m_inf, 90, 110, 115, 118, 120, m_inf, m_inf],
-            [m_inf, 111, 130, 138, 142, 148, 155, m_inf]
-        ]
-    :return: list of budget-indexes correspondent to each sub-campaign
-    """
+def knapsack_optimizer(table, budget):
 
     rows = len(table)
     cols = len(table[0])
@@ -56,10 +43,13 @@ def knapsack_optimizer(table):
             opt_indexes[row - 1].append(temp.index(max_value))
 
     # optimal cumulative number of clicks
-    opt_value = max(opt_table[rows - 1])
+    optimal_clicks = opt_table[rows - 1]
+    for i in range(cols):
+        optimal_clicks[i] = optimal_clicks[i] - budget[i]
+    opt_value = max(optimal_clicks)
 
     # pointer to the optimal budget column
-    opt_col = opt_table[rows - 1].index(opt_value)
+    opt_col = optimal_clicks.index(opt_value)
 
     # list of budget-pointers for each sub-campaign
     assignments = [0 for r in range(rows)]
