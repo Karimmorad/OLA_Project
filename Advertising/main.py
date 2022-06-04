@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 opt_super_arm_reward = 0
 
+
 def run_dp(products, budgets, features, click_functions,
            alphas, sigma):
     dp_opt = Environment(products, budgets, features, click_functions, alphas, sigma)
@@ -15,7 +16,7 @@ def run_dp(products, budgets, features, click_functions,
     #     opt_env.add_subcampaign(label=feature_label, functions=click_functions[feature_label])
 
     real_values = dp_opt.round_all()
-    opt_super_arm = knapsack_optimizer(real_values)
+    opt_super_arm = knapsack_optimizer(real_values, budgets[0])
 
     opt_super_arm_reward = 0
 
@@ -44,7 +45,7 @@ for i in range(len(products)):
 real_values = None
 
 results = run_dp(products, budgets, features, click_functions,
-                              alphas, sigma)
+                 alphas, sigma)
 df_table = results[0]
 opt_super_arm_reward = results[1]
 print(df_table)
