@@ -21,14 +21,16 @@ class setting_manager:
 
         # Experiment settings
         self.click_functions = {}
-        self.alphas = [[]]
+        self.alphas = []
         for i, campaign in enumerate(campaigns):
             prod = campaign['product']
             self.click_functions[prod] = []
+            _ = []
             for j, feature in enumerate(self.features):
                 alpha = campaign['subcampaign'][feature]['alpha']
-                self.alpha[i][j] = alpha
+                _.append(alpha)
                 self.click_functions[prod].append(lambda x, a=alpha: self.n(x, a))
+            self.alphas.append(_)
 
     def n(self, x, a, max_clicks=200):
         return (1 - np.exp(-5.0 * x)) * a * max_clicks
