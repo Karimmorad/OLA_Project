@@ -19,12 +19,14 @@ class setting_manager:
 
         # Experiment settings
         self.click_functions = {}
-        for campaign in campaigns:
+        self.alphas = [[]]
+        for i, campaign in enumerate(campaigns):
             prod = campaign['product']
             self.click_functions[prod] = []
-            for feature in self.features:
-                alpha_bar = campaign['subcampaign'][feature]['alpha_bar']
-                self.click_functions[prod].append(lambda x, a=alpha_bar: self.n(x, a))
+            for j, feature in enumerate(self.features):
+                alpha = campaign['subcampaign'][feature]['alpha']
+                self.alpha[i][j] = alpha
+                self.click_functions[prod].append(lambda x, a=alpha: self.n(x, a))
 
     def n(self, x, a, max_clicks=200):
         return (1 - np.exp(-5.0 * x)) * a * max_clicks
@@ -32,20 +34,23 @@ class setting_manager:
 
 # colors = ['r', 'b', 'black']
 # env = setting_manager()
-#
-# budgets = np.linspace(0, 10, num=11)
-# x = np.linspace(0, max(budgets), num=550)
 # features = env.features
 # products = env.product
+#
+# budgets = []
+# for i in range(len(products)):
+#     budgets.append(np.linspace(0, 10, num=11))
+#
+# x = np.linspace(0, max(budgets[0]), num=550)
 #
 # fig, axs = plt.subplots(1, 5, figsize=(20, 8))
 # for i, product in enumerate(products):
 #     for j, label in enumerate(features):
 #         y = env.click_functions[product][j](x)
-#         scatters = env.click_functions[product][j](budgets)
+#         scatters = env.click_functions[product][j](budgets[i])
 #         axs[i].plot(x, y, color=colors[j], label=label)
-#         axs[i].scatter(budgets, scatters, color=colors[j])
-#         axs[i].set_title("product " + product + "click function")
+#         axs[i].scatter(budgets[i], scatters, color=colors[j])
+#         axs[i].set_title("product " + product + " click function")
 #         axs[i].set_xlabel("Budget")
 #         axs[i].set_ylabel("Number of Clicks")
 #         axs[i].legend()
