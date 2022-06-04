@@ -9,10 +9,12 @@ class setting_manager:
             data = json.load(json_file)
         campaigns = data["campaigns"]
 
-        # Product settings
+        # Product and margin settings
         self.product = []
+        self.margin = []
         for i in range(len(campaigns)):
             self.product.append(campaigns[i]["product"])
+            self.margin.append(campaigns[i]["margin"])
 
         # Class settings
         self.features = list(campaigns[0]["subcampaign"].keys())
