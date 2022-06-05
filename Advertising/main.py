@@ -44,12 +44,13 @@ for i in range(len(products)):
 
 real_values = None
 
-results = run_dp(products, budgets, features, click_functions,
-                 alphas, sigma)
-df_table = results[0]
-opt_super_arm_reward = results[1]
-print(df_table)
-print(opt_super_arm_reward)
 
-opt_rewards_per_experiment = []
-gpts_rewards_per_experiment = []
+# # All the parameters are known
+# # results contain the table and the optimal rewards for the optimal arm
+# results = run_dp(products, budgets, features, click_functions,
+#                  alphas, sigma)
+# df_table = results[0]
+# opt_super_arm_reward = results[1]
+# print(df_table)
+# print(opt_super_arm_reward)
+
