@@ -11,8 +11,8 @@ class GPTS_Learner:
         self.collected_rewards = np.array([])
         self.pulled_arms = []
         self.means = np.zeros(self.n_arms)
-        self.sigmas = np.ones(self.n_arms) * 20
-        alpha = .5
+        self.sigmas = np.ones(self.n_arms) * 10
+        alpha = 10.0
         kernel = C(1.0, (1e-3, 1e3)) * RBF(1.0, (1e-3, 1e3))
         self.gp = sklearn.gaussian_process.GaussianProcessRegressor(kernel=kernel, alpha=alpha ** 2,
                                                                     normalize_y=True, n_restarts_optimizer=9)
