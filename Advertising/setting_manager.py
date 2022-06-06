@@ -32,8 +32,8 @@ class setting_manager:
                 self.click_functions[prod].append(lambda x, a=alpha: self.n(x, a))
             self.alphas.append(_)
 
-    def n(self, x, a, max_clicks=200):
-        return (1 - np.exp(-5.0 * x)) * a * max_clicks
+    def n(self, x, a, max_clicks=150):
+        return (1 - np.exp(-1.0 * x)) * a * max_clicks
 
 
 # colors = ['r', 'b', 'black']

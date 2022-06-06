@@ -39,7 +39,7 @@ class Campaign:
     def round(self, pulled_arm, feature=None):
         # aggregate sample
         if feature is None:
-            return sum(self.alphas[i] * self.subcampaigns[i].round(pulled_arm) for i in range(len(self.features)))
+            return sum(self.subcampaigns[i].round(pulled_arm) for i in range(len(self.features)))
         # disaggregate sample
         else:
             return self.subcampaigns[feature].round(pulled_arm)
